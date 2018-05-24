@@ -6,20 +6,31 @@
  */
 import { createStore, applyMiddleware } from 'redux'
 import logger from 'redux-logger'
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 import {
   createReactNavigationReduxMiddleware,
 } from 'react-navigation-redux-helpers'
+
+import AppReducer from './screens/navigation/reducer'
+
+const persistConfig = {
+  key: 'root',
+  storage,
+}
+const persistedReducer = persistReducer(persistConfig, AppReducer)
 
 const reactNavigationReduxMiddleware = createReactNavigationReduxMiddleware(
   'root',
   state => state.nav,
 )
 
-import AppReducer from './screens/navigation/reducer'
+export default () => {
+  const store = createStore(
+    persistedReducer,
+    applyMiddleware(...[reactNavigationReduxMiddleware, logger]),
+  )
 
-const store = createStore(
-  AppReducer,
-  applyMiddleware(...[reactNavigationReduxMiddleware, logger]),
-)
-
-export default store
+  let persistor = persistStore(store)
+  return { store, persistor }
+}
