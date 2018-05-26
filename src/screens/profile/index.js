@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { StyleSheet, Text, View } from 'react-native'
-// import { NavigationActions } from 'react-navigation'
+import { BackHandler } from 'react-native'
+import { NavigationActions } from 'react-navigation'
 
 // import LoginStatusMessage from '../components/LoginStatusMessage'
 import Button from '../components/Button'
@@ -28,6 +29,22 @@ class ProfileScreen extends Component {
     title: 'Profile', 
   }
 
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.onBackPress)
+  }
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.onBackPress)
+  }
+  onBackPress = () => {
+    const { dispatch } = this.props
+    // if (nav.index === 0) {
+    //   return false;
+    // }
+    // console.log('NavigationActions.back()', NavigationActions.back())
+    dispatch(NavigationActions.back())
+    return true
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -43,4 +60,8 @@ class ProfileScreen extends Component {
   }
 }
 
-export default connect()(ProfileScreen)
+const mapStateToProps = state => ({
+  nav: state.nav,
+})
+
+export default connect(mapStateToProps)(ProfileScreen)
