@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Button } from 'react-native'
-import { Text, View, TouchableOpacity } from 'react-native'
+import { Text, TouchableOpacity } from 'react-native'
 import { NavigationActions } from 'react-navigation'
 
 class AuthButton extends Component {
@@ -15,10 +14,6 @@ class AuthButton extends Component {
   render() {
     const { logout, loginScreen, isLoggedIn } = this.props
     return (
-      // <Button
-      //   title={isLoggedIn ? 'Log Out' : 'Open Login Screen'}
-      //   onPress={isLoggedIn ? logout : loginScreen}
-      // />
       <TouchableOpacity
         style={{
           paddingVertical: 15,
