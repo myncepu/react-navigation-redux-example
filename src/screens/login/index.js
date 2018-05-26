@@ -1,13 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Button, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
+import Button from '../components/Button'
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'yellowgreen',
   },
   welcome: {
     fontSize: 20,
@@ -18,11 +19,14 @@ const styles = StyleSheet.create({
 
 class LoginScreen extends React.Component {
   static propTypes = {
-    navigation: PropTypes.object.isRequired
+    navigation: PropTypes.object.isRequired,
   }
 
   static navigationOptions = {
-    title: 'Log In ~',
+    title: 'Log In',
+    headerStyle: {
+      backgroundColor: 'yellowgreen',
+    }
   }
 
   render() {

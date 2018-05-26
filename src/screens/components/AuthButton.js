@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Button } from 'react-native'
+import { Text, TouchableOpacity } from 'react-native'
 import { NavigationActions } from 'react-navigation'
 
 class AuthButton extends Component {
@@ -14,10 +14,20 @@ class AuthButton extends Component {
   render() {
     const { logout, loginScreen, isLoggedIn } = this.props
     return (
-      <Button
-        title={isLoggedIn ? 'Log Out' : 'Open Login Screen'}
+      <TouchableOpacity
+        style={{
+          paddingVertical: 15,
+          paddingHorizontal: 40,
+          backgroundColor: 'indigo',
+          borderRadius: 5,
+          marginTop: 20,
+        }}
         onPress={isLoggedIn ? logout : loginScreen}
-      />
+      >
+        <Text style={{ fontSize: 23, fontWeight: '600', color: 'white' }}>
+          {isLoggedIn ? 'Log Out' : 'Open Login Screen'}
+        </Text>
+      </TouchableOpacity>
     )
   }
 }
@@ -28,8 +38,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch({ type: 'Logout' }),
-  loginScreen: () =>
-    dispatch(NavigationActions.navigate({ routeName: 'Login' })),
+  loginScreen: () => dispatch(NavigationActions.navigate({ routeName: 'Login' })),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthButton)

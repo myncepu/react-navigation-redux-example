@@ -1,20 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { createStackNavigator } from 'react-navigation'
+import { createStackNavigator, createSwitchNavigator } from 'react-navigation'
 import {
   createReduxBoundAddListener,
 } from 'react-navigation-redux-helpers'
 
 import LoginScreen from './login'
-import MainScreen from './main'
+import HomeScreen from './home'
 import ProfileScreen from './profile'
 
-export const AppNavigator = createStackNavigator({
-  Login: { screen: LoginScreen },
-  Main: { screen: MainScreen },
-  Profile: { screen: ProfileScreen },
-})
+const AppStack = createStackNavigator({ Home: HomeScreen, Profile: ProfileScreen })
+const AuthStack = createStackNavigator({ Login: LoginScreen })
+
+export const AppNavigator = createSwitchNavigator(
+  {
+    // AuthLoading: LoginScreen,
+    App: AppStack,
+    Auth: AuthStack,
+  },
+  {
+    initialRouteName: 'Auth',
+  }
+)
 
 class AppWithNavigationState extends React.Component {
   static propTypes = {

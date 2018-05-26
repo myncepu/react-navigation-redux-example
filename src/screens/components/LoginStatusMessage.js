@@ -1,10 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Button, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import { NavigationActions } from 'react-navigation'
 
+import Button from './Button'
+
 const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
@@ -17,13 +23,12 @@ const LoginStatusMessage = ({ isLoggedIn, dispatch }) => {
     return <Text>Please log in</Text>
   }
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.welcome}>
         {'You are "logged in" right now'}
       </Text>
       <Button
-        onPress={() =>
-          dispatch(NavigationActions.navigate({ routeName: 'Profile' }))}
+        onPress={() => dispatch(NavigationActions.navigate({ routeName: 'Profile' }))}
         title="Profile"
       />
     </View>
